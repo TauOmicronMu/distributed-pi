@@ -1,14 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <mpi.h>
+#include <math.h>
 
-const size_t TOTAL_WORK = 990000;
-const size_t NUM_WORKERS = 99;
+const long double TOTAL_WORK = 990000.0;
+const long double  NUM_WORKERS = 99.0;
+const long double WORK_PER_WORKER = 10000.0;
 long long double PI = 0;
 
-long long WORK_PER_WORKER;
-
-int client(long long start_n);
+int client(long start_n);
 int server(void);
 long double calc(long long start_n);
 
@@ -18,13 +18,10 @@ int main(int argc, char ** argv) {
     int rank;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 
-    long long N = 0;
-    WORK_PER_WORKER = TOTAL_WORK/NUM_WORKERS;
-
     if(rank == 0) server();
     else {
-        client(N);
-        N += WORK_PER_WORKER;
+        client(WORK_PER_WORKER * (long double)(rank - 1));
+    }
 
     MPI_Finalize();
 
@@ -37,7 +34,7 @@ int main(int argc, char ** argv) {
 */
 int server(void) {
      
-    long long WORKERS_FINISHED = 0;
+    long WORKERS_FINISHED = 0;
    
     while(WORKERS_FINISHED < NUM_WORKERS) {
         // Wait for a worker to respond with their workload and add it to PI
@@ -49,7 +46,7 @@ int server(void) {
         WORKERS_FINISHED++;
     }
 
-    printf("Pi is: %lld\n", (long long double)((4.0*PI)/N));
+    printf("Pi is: %Ld\n", (long long double)((4.0*PI)/(long double)TOTAL_WORK));
     
     return 0;
 }
@@ -58,10 +55,13 @@ int server(void) {
    The client asynchronously reads and writes to the int
    stored in the server. 
 */ 
-int client(long long start_n) {
+int client(long start_n) {
+    printf("Client is starting with start_n = %lu\n", start_n);
+
     // Calculate pi between n and n + WORK_PER_WORKER
     long double retval = calc(start_n);
-   
+    printf("CLIENT is returning %Lf\n", retval);
+     
     // Send retval back to the server
     MPI_Send(&retval, 1, MPI_LONG_DOUBLE, 0, 0, MPI_COMM_WORLD);
 
@@ -69,14 +69,20 @@ int client(long long start_n) {
     return 0;
 }
 
-long double calc(long long start_n) {
+long double calc(long start_n) {
+    printf("[CALC] - start");
     long double a,b,c,calc = 0.0;
-    for (long long i = start_n; i < start_n + WORK_PER_WORKER; i++) {
-        c = ((long double) i - 0.5) / ((long double) TOTAL_WORK);
+    for (long i = start_n; i < start_n + (long)WORK_PER_WORKER; i++) { 
+        printf("i: %lu TOTAL_WORK: %lu\n", i, TOTAL_WORK);   
+        c = ((long double)i - 0.5) / TOTAL_WORK;
+        printf("c: %Lf\n", c);
         b = pow(c, 2.0);
+        printf("b: %Lf\n", b);
         a = 1.0 + b;
+        printf("a: %Lf\n", a);
         calc += 1.0/a;
     }
+    printf("[CALC] - returning %Lf\n", calc);
     return calc;
 }
 

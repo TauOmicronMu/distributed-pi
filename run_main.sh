@@ -3,7 +3,7 @@
 #SBATCH --time 1:00:00
 #SBATCH --qos bearchal03
 #SBATCH --reservation BearChallenge
-#SBATCH --output=main.out
+#SBATCH --output=task.out
 
 module purge
 module load bluebear
@@ -12,7 +12,4 @@ module load iomkl/2018a
 
 mpicc main.c -o main
 
-for i in 1
-do
-    mpirun main $input_num
-done
+mpirun main
