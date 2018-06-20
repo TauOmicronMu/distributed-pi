@@ -6,27 +6,11 @@
 const long double TOTAL_WORK = 990000.0;
 const long double  NUM_WORKERS = 99.0;
 const long double WORK_PER_WORKER = 10000.0;
-long long double PI = 0;
+long double PI = 0;
 
 int client(long start_n);
 int server(void);
-long double calc(long long start_n);
-
-int main(int argc, char ** argv) {
-    MPI_Init(&argc, &argv);
-
-    int rank;
-    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-
-    if(rank == 0) server();
-    else {
-        client(WORK_PER_WORKER * (long double)(rank - 1));
-    }
-
-    MPI_Finalize();
-
-    return 0;
-}
+long double calc(long start_n);
 
 /*
     The server holds an int, and listens for read/write
@@ -46,7 +30,7 @@ int server(void) {
         WORKERS_FINISHED++;
     }
 
-    printf("Pi is: %Ld\n", (long long double)((4.0*PI)/(long double)TOTAL_WORK));
+    printf("Pi is: %Ld\n", (long double)((4.0*PI)/TOTAL_WORK));
     
     return 0;
 }
@@ -71,7 +55,10 @@ int client(long start_n) {
 
 long double calc(long start_n) {
     printf("[CALC] - start");
-    long double a,b,c,calc = 0.0;
+    long double a = 0.0;
+    long double b = 0.0;
+    long double c = 0.0;
+    long double calc = 0.0;
     for (long i = start_n; i < start_n + (long)WORK_PER_WORKER; i++) { 
         printf("i: %lu TOTAL_WORK: %lu\n", i, TOTAL_WORK);   
         c = ((long double)i - 0.5) / TOTAL_WORK;
@@ -86,4 +73,19 @@ long double calc(long start_n) {
     return calc;
 }
 
+int main(int argc, char ** argv) {
+    MPI_Init(&argc, &argv);
+
+    int rank;
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+
+    if(rank == 0) server();
+    else {
+        client(WORK_PER_WORKER * (long double)(rank - 1));
+    }
+
+    MPI_Finalize();
+
+    return 0;
+}
 
