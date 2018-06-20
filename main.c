@@ -4,10 +4,10 @@
 #include <math.h>
 #include <float.h> 
 
-const long double TOTAL_WORK = 990000.0;
+const long double TOTAL_WORK = 99.0e11;
 const long double  NUM_WORKERS = 99.0;
-const long double WORK_PER_WORKER = 10000.0;
-long double PI = 0;
+const long double WORK_PER_WORKER = 1.0e11;
+long double PI = 0.0;
 
 int client(long start_n);
 int server(void);
@@ -26,9 +26,7 @@ int server(void) {
         MPI_Status status;
         long double response;
         MPI_Recv(&response, 1, MPI_LONG_DOUBLE, MPI_ANY_SOURCE, MPI_ANY_TAG, MPI_COMM_WORLD, &status);
-        printf("Received response (%Lf) from client\n", response);
         PI += response;
-        printf("PI is now %Lf\n", PI);
         WORKERS_FINISHED++;
     }
 
@@ -42,7 +40,6 @@ int server(void) {
    stored in the server. 
 */ 
 int client(long start_n) {
-    printf("Client is starting with start_n = %lu\n", start_n);
 
     // Calculate pi between n and n + WORK_PER_WORKER
     long double retval = calc(start_n);
@@ -50,7 +47,6 @@ int client(long start_n) {
     // Send retval back to the server
     MPI_Send(&retval, 1, MPI_LONG_DOUBLE, 0, 0, MPI_COMM_WORLD);
 
-    printf("Client exiting\n");
     return 0;
 }
 
