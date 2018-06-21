@@ -1,0 +1,10 @@
+GCCcore/6.4.0
+binutils/2.28-GCCcore-6.4.0
+icc/2018.1.163-GCC-6.4.0-2.28
+ifort/2018.1.163-GCC-6.4.0-2.28
+iccifort/2018.1.163-GCC-6.4.0-2.28
+OpenMPI/2.1.2-iccifort-2018.1.163-GCC-6.4.0-2.28
+iompi/2018a
+imkl/2018.1.163-iompi-2018a
+iomkl/2018a
+Pi is: 0.000000000000000000000

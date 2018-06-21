@@ -1,0 +1,21 @@
+GCCcore/6.4.0
+binutils/2.28-GCCcore-6.4.0
+icc/2018.1.163-GCC-6.4.0-2.28
+ifort/2018.1.163-GCC-6.4.0-2.28
+iccifort/2018.1.163-GCC-6.4.0-2.28
+OpenMPI/2.1.2-iccifort-2018.1.163-GCC-6.4.0-2.28
+iompi/2018a
+imkl/2018.1.163-iompi-2018a
+iomkl/2018a
+slurmstepd: error: *** JOB 1390334 ON bear-pg0210u20a CANCELLED AT 2018-06-20T21:21:09 DUE TO TIME LIMIT ***
+--------------------------------------------------------------------------
+ORTE has lost communication with a remote daemon.
+
+  HNP daemon   : [[12482,0],0] on node bear-pg0210u20a
+  Remote daemon: [[12482,0],4] on node bear-pg0210u28a
+
+This is usually due to either a failure of the TCP network
+connection to the node, or possibly an internal failure of
+the daemon itself. We cannot recover from this failure, and
+therefore will terminate the job.
+--------------------------------------------------------------------------

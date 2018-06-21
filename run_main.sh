@@ -3,7 +3,6 @@
 #SBATCH --time 1:00:00
 #SBATCH --qos bearchal03
 #SBATCH --reservation BearChallenge
-#SBATCH --output=task.out
 
 module purge
 module load bluebear

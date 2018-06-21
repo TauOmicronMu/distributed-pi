@@ -1,0 +1,16 @@
++--------------------------------------------------------------------------+
+| Job on the BlueBEAR cluster:
+| Starting at Wed Jun 20 21:23:16 2018 for txg523(273284)
+| Identity jobid 1390341 jobname run_main.sh
+| Running against project thompssj-chal18-03 and in partition broadwell-bearchal03
+| Requested cpu=100,mem=500000M,node=5 - 01:00:00 walltime
+| Assigned to nodes bear-pg0210u20a,bear-pg0210u20b,bear-pg0210u27a,bear-pg0210u27b,bear-pg0210u28a
+| Command /rds/homes/t/txg523/distributed-pi/run_main.sh
+| WorkDir /rds/homes/t/txg523/distributed-pi
++--------------------------------------------------------------------------+
++--------------------------------------------------------------------------+
+| Finished at Wed Jun 20 21:23:32 2018 for txg523(273284) on the BlueBEAR Cluster
+| Required (00:16.319 cputime, 1372K memory used) - 00:00:18 walltime
+| JobState COMPLETING - Reason None
+| Exitcode 0:0
++--------------------------------------------------------------------------+

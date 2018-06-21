@@ -4,9 +4,9 @@
 #include <math.h>
 #include <float.h> 
 
-const long double TOTAL_WORK = 99.0e11;
+const long double TOTAL_WORK = 99.0e50;
 const long double  NUM_WORKERS = 99.0;
-const long double WORK_PER_WORKER = 1.0e11;
+const long double WORK_PER_WORKER = 1.0e50;
 long double PI = 0.0;
 
 int client(long start_n);
